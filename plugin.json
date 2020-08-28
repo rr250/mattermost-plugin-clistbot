@@ -1,0 +1,21 @@
+{
+    "id": "com.rr250.clistbot-plugin",
+    "name": "ClistBot Plugin",
+    "description": "ClistBot Plugin",
+    "version": "0.0.1",
+    "server": {
+      "executables": {
+          "linux-amd64": "server/dist/plugin-linux-amd64",
+          "darwin-amd64": "server/dist/plugin-darwin-amd64",
+          "windows-amd64": "server/dist/plugin-windows-amd64.exe"
+      }
+    },
+    "settings_schema": {
+      "settings": [{
+        "key": "ChannelIDList",
+        "display_name": "Channel ID List",
+        "type": "text",
+        "help_text": "Channel ID List separated by comma(,) where clistbot will post the contests"
+      }]
+    }
+}
