@@ -32,6 +32,7 @@ func (p *Plugin) SendDailyContests() {
 	if err != nil {
 		p.API.LogError(err.Error())
 	}
+	res.Body.Close()
 	attachments := []*model.SlackAttachment{}
 	objects := body["objects"].([]interface{})
 	for _, object := range objects {
