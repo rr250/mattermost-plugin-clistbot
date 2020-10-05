@@ -1,6 +1,9 @@
 package main
 
 import (
+	"time"
+
+	"github.com/mattermost/mattermost-plugin-api/cluster"
 	"github.com/mattermost/mattermost-server/v5/model"
 	"github.com/pkg/errors"
 )
@@ -17,8 +20,16 @@ func (p *Plugin) OnActivate() error {
 		return errors.Wrap(err, "failed to ensure bot user")
 	}
 	p.botUserID = botUserID
-	p.cron = p.InitCRON()
-	p.cron.Start()
+	job, cronErr := cluster.Schedule(
+		p.API,
+		"BackgroundJob",
+		cluster.MakeWaitForRoundedInterval(1*time.Minute),
+		p.SendDailyContests,
+	)
+	if cronErr != nil {
+		return errors.Wrap(cronErr, "failed to schedule background job")
+	}
+	p.backgroundJob = job
 	return nil
 }
 
