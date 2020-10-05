@@ -66,9 +66,12 @@ func (p *Plugin) SendDailyContests() {
 				"attachments": attachments,
 			},
 		}
-		_, err = p.API.CreatePost(postModel)
-		if err != nil {
-			p.API.LogError(err.Error())
+		if len(attachments) == 0 {
+			postModel.Message = "No Challenges today"
+		}
+		_, err2 := p.API.CreatePost(postModel)
+		if err2 != nil {
+			p.API.LogError(err2.Error())
 			return
 		}
 	}

@@ -23,7 +23,7 @@ func (p *Plugin) OnActivate() error {
 	job, cronErr := cluster.Schedule(
 		p.API,
 		"BackgroundJob",
-		cluster.MakeWaitForRoundedInterval(1*time.Minute),
+		cluster.MakeWaitForRoundedInterval(24*time.Hour),
 		p.SendDailyContests,
 	)
 	if cronErr != nil {
